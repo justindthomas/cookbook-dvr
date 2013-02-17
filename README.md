@@ -26,6 +26,8 @@ The following packages are installed from the custom repositories noted above:
 - xserver-xorg-video-intel
 - caffeine
 
+Using the dvbhdhomerun kernel drivers appears to improve quality, but is quirky. To load channels, use the standard HDHomerun configuration in MythTV Backend and perform the channel scan. With the channels loaded, you can then delete those tuner entries and re-add them as dvbhdhomerun devices. For some reason, channel scanning does not work with the kernel drivers and loading the channel list from ScheduleDirect listings appears to fail as well (argh, MythTV).
+
 Requirements
 ------------
 The "htpc" user must already exist. Upon installation, GDM will be configured to automatically login as "htpc." On completion, the "htpc" user will need to be manually configured as a member of groups such as "mythtv" and "audio."
