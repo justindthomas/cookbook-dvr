@@ -38,8 +38,10 @@ Attributes
 ------------
 For automatically configuring network shares, the following attributes are required.
 
+```
 default["dvr"]["account"] 	The username required to authenticate to shares for this system.
 default["dvr"]["password"]	The password associated with "account".
 default["dvr"]["mounts"]	A list of IDs of data bag items in the "storage" data bag
+```
 
 The "storage" data bag must have attributes for: device, fstype and mount_point for each share. The ID of each share will be used in the attributes to associate a recipe with a set of file shares.
