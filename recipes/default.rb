@@ -106,6 +106,17 @@ package "huludesktop" do
   action :install
 end
 
+template "/etc/credentials" do
+  source "credentials.erb"
+  mode 0440
+  owner "root"
+  group "root"
+  variables({
+    :username => node.default['dvr']['account'],
+    :password => node.default['dvr']['password']
+  })
+end
+
 node.default["dvr"]["mounts"].each do |mount|
   share = data_bag_item("shares", mount)
   
@@ -120,7 +131,7 @@ node.default["dvr"]["mounts"].each do |mount|
   mount share["mount_point"] do
     device share["device"]
     fstype share["fstype"]
-    options "username=#{node.default['dvr']['account']},password=#{node.default['dvr']['password']}"
+    options "credentials=/etc/credentials"
     action [:mount, :enable]
   end
 end
