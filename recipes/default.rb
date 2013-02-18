@@ -105,3 +105,22 @@ package "huludesktop" do
   source "/usr/local/packages/#{hulu}"
   action :install
 end
+
+node.default["dvr"]["mounts"].each do |mount|
+  share = data_bag_item("shares", mount)
+  
+  directory share["mount_point"] do
+    owner "root"
+    group "root"
+    mode 00755
+    action :create
+    recursive true
+  end
+  
+  mount share["mount_point"] do
+    device share["device"]
+    fstype share["fstype"]
+    options "username=#{node.default['dvr']['account']},password=#{node.default['dvr']['password']}"
+    action [:mount, :enable]
+  end
+end
